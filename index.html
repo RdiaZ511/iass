@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Inteligencia Artificial - Sencilla y Segura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #F4F7FC 0%, #E9EEF5 100%);
+            font-family: 'Inter', 'Roboto', sans-serif;
+            color: #1A2C3E;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Contenedor principal */
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+        }
+
+        /* Slides wrapper con tarjeta elevada */
+        .slides-wrapper {
+            width: 90%;
+            max-width: 1280px;
+            height: 80vh;
+            background: #FFFFFF;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0,0,0,0.03);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 2rem 2.5rem;
+            transition: all 0.2s ease;
+            scrollbar-width: thin;
+            border: 1px solid rgba(45, 106, 255, 0.15);
+        }
+
+        .slides-wrapper::-webkit-scrollbar {
+            width: 6px;
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .slides-wrapper::-webkit-scrollbar-thumb {
+            background: #2D6AFF;
+            border-radius: 10px;
+        }
+
+        /* Slides */
+        .slide {
+            display: none;
+            animation: fadeUp 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tipografía ejecutiva */
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0A2540, #2D6AFF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #0A2540;
+            border-left: 5px solid #2D6AFF;
+            padding-left: 1rem;
+            margin: 1rem 0 1.4rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2C3E50;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #4A627A;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Cards profesionales */
+        .card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 1rem 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EFF3F8;
+            transition: all 0.25s ease;
+            font-size: 1.2rem;
+            
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 22px -10px rgba(45, 106, 255, 0.12);
+            border-color: #CDE0FF;
+            transform: translateY(-2px);
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        /* Tabla ejecutiva */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid #EFF3F8;
+            background: #FFFFFF;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        th {
+            background: #F8FAFE;
+            color: #0A2540;
+            font-weight: 600;
+            padding: 10px 10px;
+            border-bottom: 2px solid #2D6AFF;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px 10px;
+            border-bottom: 1px solid #EDF2F7;
+            color: #2D3E50;
+            vertical-align: top;
+        }
+
+        tr:hover td {
+            background-color: #F9FBFE;
+        }
+
+        /* Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .checklist-item i.fa-check-circle {
+            color: #2D6AFF;
+            margin-top: 3px;
+        }
+        .checklist-item i.fa-ban, .warning-icon {
+            color: #E53E3E;
+        }
+
+        .badge {
+            background: #EFF4FF;
+            color: #2D6AFF;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Folder structure */
+        .folder-structure {
+            background: #F8FAFE;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            border-left: 4px solid #2D6AFF;
+        }
+
+        /* Metadatos */
+        .meta-example {
+            background: #F1F5F9;
+            padding: 0.8rem;
+            border-radius: 14px;
+            font-size: 1rem;
+            color: #2C5282;
+        }
+
+        /* Navegación */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1280px;
+            margin-top: 1rem;
+        }
+
+        button {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            color: #1E4A8A;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        button:hover {
+            background: #2D6AFF;
+            color: white;
+            border-color: #2D6AFF;
+            box-shadow: 0 6px 12px -8px #2D6AFF80;
+            transform: scale(0.98);
+        }
+
+        .slide-counter {
+            background: #FFFFFF;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #2D6AFF;
+            border: 1px solid #E2E8F0;
+            backdrop-filter: blur(0px);
+            box-shadow: none;
+        }
+
+        .dot-indicators {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #CBD5E1;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active-dot {
+            background: #2D6AFF;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 2px rgba(45,106,255,0.2);
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #E2E8F0, #2D6AFF40, #E2E8F0);
+        }
+
+        .text-accent {
+            color: #2D6AFF;
+            font-weight: 500;
+        }
+
+        @media (max-width: 700px) {
+            .slides-wrapper { padding: 1.2rem; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.4rem; }
+            .grid-2col { gap: 0.8rem; }
+            button { padding: 0.4rem 1rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="presentation-container">
+    <img src="d:/Downloads/nuevologo3.png" style="float: right" width="300" height=auto alt="Tek Service"></i><br>
+    <div class="slides-wrapper" id="slidesWrapper">
+        <!-- SLIDE 1 - Título ejecutivo -->
+        <div class="slide active" id="slide1">
+
+            <div style="display: flex; flex-direction: column; justify-content: center; min-height: 15vh; text-align: center;">
+            <div>
+            <!-- <img src="d:/Downloads/nuevologo3.png" style="float: right" width="400" height=auto alt="Tek Service"></i><br> -->
+            </div>
+                
+                <!--
+                <img src="https://raw.githubusercontent.com/RdiaZ511/RdiaZ511.github.io/refs/heads/main/varios/nuevologo-removebg-preview.png" width="300" height=auto alt="Descripción breve de la imagen">
+                <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; color: #2D6AFF; margin-bottom: 0.8rem;"></i>
+                -->
+                <h1>Inteligencia Artificial - Sencilla y Segura</h1>
+                <p style="font-size: 1.2rem; color: #2C5282; max-width: 700px; margin: 0 auto;">Curso práctico: Uso organizado de chats de IA · Seguridad · Productividad</p>
+                <div class="card" style="margin-top: 1rem; text-align: center; background: #dadada;">
+                    <h3><i class="fas fa-check-circle "></i> Uso de los chats de IA</h3>
+                    <h3><i class="fas fa-shield-halved"></i> Principios de seguridad y control de datos</h3>
+                    <h3><i class="fas fa-chart-line "></i> Practica real: Uso de IA Generativa con prompting efectivo</h3>
+                </div>
+                <div class="card" style="margin-top: 1rem; text-align: center; background: #dadada;">
+                    <h3>Facilitador: Abogado Rafael Diaz Aponte</h3>
+                    <h3>TSU Informatica - Microsoft Certified Professional - Director TEk Services Valencia</h3>
+                    <h3>Valencia - Mayo 2026</h3>
+                </div>
+
+                <!-- <div class="text-accent" style="margin-top: 2rem; font-size: 0.9rem;">◀  Navegación con teclado o botones  ▶</div> -->
+            </div>
+        </div>
+
+        <!-- SLIDE 2 - Fundamentos y protocolo de seguridad -->
+        <div class="slide" id="slide2">
+            <h2><i class="fas fa-cpu"></i> Fundamentos · IA generativa</h2>
+            <div class="grid-1col" >
+                <div class="card" ><strong>🤖 ¿Qué es un chat de IA Generativa?</strong><br>Asistente predictivo basado en patrones. <span class="text-accent">No piensa, se aproxima.</span> Siempre debes verificar con fuentes oficiales.</div>
+                <div class="card" ><strong>🔐 Regla de oro</strong><br>“Si no lo publicarías en una red social pública, no lo escribas en el chat”. No publiques datos sensibles.</div>
+                <div class="card"><strong>✅ Antes de usar</strong><br>Revisa la configuracion de privacidad, Activa Autenticacion de 2 Factores.</div>
+                <div class="card"><strong>⚠️ Señales de alerta</strong><br>Solicitud de datos personales, recibir enlaces no verificados, respuestas sin solicitudes.</div>
+            </div>
+            <div class="card" style="margin-top: 0.5rem;">
+                <i class="fas fa-mask"></i> <strong>Seudonimización</strong><br>Usa nombres ficticios para proyectos, evita dar información identificable.
+            </div>
+        </div>
+
+        <!-- SLIDE 3 - Checklist completo de seguridad (adaptado) -->
+        <div class="slide" id="slide3">
+            <h2><i class="fas fa-clipboard-list"></i> Checklist de seguridad personal</h2>
+            <div class="grid-2col">
+                <div class="card">
+                    <div class="checklist-item"><i class="fas fa-check-circle"></i> Configuracion de privacidad revisada</div>
+                    <div class="checklist-item"><i class="fas fa-check-circle"></i> Autenticación 2 Factores activada</div>
+                    <div class="checklist-item"><i class="fas fa-check-circle"></i> Revisar Conexión segura (HTTPS)</div>
+                    <div class="checklist-item"><i class="fas fa-check-circle"></i> Interacción sin publicidad</div>
+                </div>
+                <div class="card">
+                    <div class="checklist-item"><i class="fas fa-user-secret"></i> Uso de seudónimos para proyectos</div>
+                    <div class="checklist-item"><i class="fas fa-ban"></i> No compartir: contraseñas, datos financieros, direcciones</div>
+                    <div class="checklist-item"><i class="fas fa-database"></i> Exportar conversaciones y eliminar de la nube</div>
+                    <div class="checklist-item"><i class="fas fa-phone-alt"></i> Protocolo de incidentes documentado</div>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 1rem; text-align: center; background: #dadada;"><strong>❌ En caso de incidente:</strong> Cambio de contraseña inmediato, revisar actividad, reportar a plataforma y documentar.</div>
+        </div>
+
+        <!-- SLIDE 4 - Tabla comparativa herramientas (ejecutiva) -->
+        <div class="slide" id="slide4">
+            <h2><i class="fas fa-chart-simple"></i> Herramientas IA · Comparativa</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>Herramienta</th><th>Mejor para</th><th>Ventaja clave</th><th>Limitación</th><th>Español</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Gemini</strong></td><td>Tareas generales, Google Workspace</td><td>Multimodal + contexto amplio</td><td>Cuenta Google</td><td>✅ Completo</td></tr>
+                        <tr><td><strong>Perplexity.ai</strong></td><td>Investigación con fuentes</td><td>Citas en tiempo real, interfaz limpia</td><td>Límite consultas diarias</td><td>✅ Completo</td></tr>
+                        <tr><td><strong>HuggingChat</strong></td><td>Experimentación open-source</td><td>Modelos abiertos, sin restricciones geográficas</td><td>Interfaz más técnica</td><td>⚠️ Parcial</td></tr>
+                        <tr><td><strong>Poe.com</strong></td><td>Multi-modelo unificado</td><td>Puntos diarios gratuitos, bots personalizables</td><td>Límite mensajes</td><td>✅ Completo</td></tr>
+                        <tr><td><strong>DeepSeek</strong></td><td>Razonamiento lógico y código</td><td>Gratuito, especializado en análisis</td><td>Documentación en inglés</td><td>⚠️ UI en inglés</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 1rem; font-size: 1rem;"><span class="badge">Recomendación corporativa</span> Gemini + Perplexity para productividad, DeepSeek para análisis técnico.</p>
+        </div>
+
+        <!-- SLIDE 5 - Organización de conversaciones y reutilización -->
+        <div class="slide" id="slide5">
+            <h2><i class="fas fa-folder-open"></i> Organización del conocimiento</h2>
+            <div class="folder-structure">
+                📁 Chats_IA/<br>
+                ├── 01_Trabajo/Proyectos/ → [Fecha]_[Proyecto]_[Herramienta].md<br>
+                ├── 02_Estudio/Resúmenes/<br>
+                ├── 03_Personal/Finanzas/ 🔐<br>
+                └── 99_Archivado/Plantillas/
+            </div>
+            <div class="card" style="margin-top: 1rem;">
+                <i class="fas fa-tag"></i> <strong>Metadatos recomendados (encabezado):</strong><br>
+                <code>Fecha: AAAA-MM-DD | Herramienta: Gemini | Propósito: plan de alimentacion semanal | Interes: Bajo</code>
+            </div>
+            <div class="card">
+                <i class="fas fa-copy"></i> <strong>Registro de prompts exitosos:</strong> Tabla con número, categoría (#correo, #resumen, #curso), variables y ejemplo de uso. Reutilización.
+            </div>
+        </div>
+
+        <!-- SLIDE 6 - Guía de contingencia técnica 
+        <div class="slide" id="slide6">
+            <h2><i class="fas fa-exclamation-triangle"></i> Plan de contingencia técnica</h2>
+            <div class="grid-2col">
+                <div class="card"><strong>🚨 Herramienta no carga</strong><br>Modo incógnito, cambiar a herramienta respaldo (Gemini ↔ Perplexity).</div>
+                <div class="card"><strong>🔐 Verificación inesperada</strong><br>No compartir códigos, evaluar continuar con cuenta demostración.</div>
+                <div class="card"><strong>⚠️ Respuesta incorrecta o insegura</strong><br>Detener uso, reformular prompt con contexto, verificar fuentes oficiales.</div>
+                <div class="card"><strong>📡 Conexión inestable</strong><br>Usar capturas de pantalla offline, ejercicios en papel, sesión teórica.</div>
+            </div>
+            <div class="card"><i class="fas fa-address-card"></i> <strong>Registro de incidentes</strong> – Fecha, herramienta, problema, solución. Mejora continua.</div>
+        </div>
+        -->
+        <!-- SLIDE 7 - Ejemplo práctico: Café Andino (4 publicaciones semanales)
+        <div class="slide" id="slide7">
+            <h2><i class="fas fa-chart-line"></i> Caso práctico: "Café Andino"</h2>
+            <p><strong>Contexto:</strong> Público objetivo definido, presupuesto limitado → priorizar orgánico. Calendario de contenidos para junio.</p>
+            <div class="table-wrapper">
+                <table style="font-size:0.8rem;">
+                    <thead><tr><th>Semana</th><th>Tema</th><th>Formato sugerido</th><th>CTA (llamada a la acción)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Semana 1</td><td>🌄 Origen del Café Andino</td><td>Carrusel Instagram / FB</td><td>"Comparte tu taza favorita"</td></tr>
+                        <tr><td>Semana 2</td><td>👨‍🌾 Historias de agricultores locales</td><td>Reel + testimonio corto</td><td>"Etiqueta a un amigo que ama el buen café"</td></tr>
+                        <tr><td>Semana 3</td><td>☕ Métodos de preparación: prensa vs Chemex</td><td>Infografía / video tutorial</td><td>"Guarda este post para probarlo"</td></tr>
+                        <tr><td>Semana 4</td><td>🌱 Beneficios del café de altura y sostenibilidad</td><td>Post educativo + carrusel</td><td>"Cuéntanos ¿cómo tomas tu café?"</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="badge" style="margin-top: 0.8rem;">📊 Enfoque orgánico · interacción genuina · hashtags #CaféAndino</p>
+        </div>
+    -->
+
+        <!-- SLIDE 8 - Prompting efectivo (fórmula profesional) -->
+        <div class="slide" id="slide6">
+            <h2><i class="fas fa-lightbulb"></i> Prompting efectivo · Metodología</h2>
+            <div class="card"><strong>[ROL] + [TAREA] + [CONTEXTO] + [FORMATO] + [RESTRICCIONES]</strong></div>
+            <div class="grid-2col">
+                <div class="card"><strong>❌ Prompt pobre:</strong> "Ayúdame a escribir un recordatorio para mi familia"</div>
+                <div class="card"><strong>✅ Prompt optimizado:</strong> "Actúa como especialista en comunicación. Redacta un recordatorio familiar sobre la reunion de cumpleaños de la abuela el viernes 31/5 a las 5 PM. Formato Slack, máximo 3 líneas, tono familiar amigable. Usa emojis."</div>
+            </div>
+            <div class="card" style="margin-top: 1rem; text-align: center; background: #dadada;">
+                <i class="fas fa-reply-all"></i> <strong>Respuesta generada:</strong><br>
+                "📌 Estimado equipo: recordatorio amable: el informe mensual debe entregarse el viernes 31/5 antes de las 5 PM. ¿Algún apoyo necesario? Avísenos. ¡Gracias!"
+            </div>
+            <p class="text-accent" style="margin-top: 0.5rem;">+ Ahorro de tokens, contexto relevante, mejor precisión.</p>
+        </div>
+
+        <!-- SLIDE 9 - Ejercicios y detección de alucinaciones -->
+        <div class="slide" id="slide7">
+            <h2><i class="fas fa-clipboard-question"></i> Ejercicio de Prompting</h2>
+                <div class="card">
+                    <div class="grid-2col">
+                        <div>
+                        <strong>📌 Distintos Roles o Habilidades </strong><br>
+                        ├── Cotidiano<br>
+                        ├── Experto<br>
+                        ├── Profesional<br>
+                        └── Investigador
+                        </div>
+                    
+                        <div>
+                        <strong>📅 Tareas Especificas </strong><br>
+                        ├── Redactar<br>
+                        ├── Investigar<br>
+                        ├── Analizar<br>
+                        └── Presentar
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="grid-2col">
+                        <div>
+                        <strong>📚 Definicion de Contexto </strong><br>
+                        ├── Personal<br>
+                        ├── Social / Laboral<br>
+                        ├── de Equipamiento<br>
+                        └── de Antecedentes
+                        </div>
+                    
+                        <div>
+                        <strong>👔 Formato Definido </strong><br>
+                        ├── Texto Simple<br>
+                        ├── Codigo de Programacion<br>
+                        ├── Documento<br>
+                        └── Presentacion
+                        </div>
+                    </div>
+                </div>
+                <div class="card" text-align: center; background: #dadada;">
+                <strong>🙅‍♂️ Restricciones claras: que cosas no debe hacer o mostrar.</strong>
+            </div>
+        </div>
+
+        <!-- SLIDE 10 - Guion del instructor (minuto a minuto) + puntos clave -->
+        <div class="slide" id="slide8">
+            <div class="card" style="text-align: center;">
+                <h2><strong>🎯 3 claves para reforzar:</strong><br>
+                    ✓ La IA no tiene criterio: tú eres el responsable de verificar.<br>
+                    ✓ Seguridad proactiva: no exponer datos sensibles.<br>
+                    ✓ Organización sistemática: multiplica el valor de cada conversación.<br></h2>
+            </div>
+            <div class="card" style="text-align: center;">
+                <h2><i class="fas fa-gem"></i> “La IA potencia tu talento, pero el juicio humano sigue siendo insustituible”.</h2>
+                <h2>Gracias por participar</h2>
+            </div>
+
+        <!-- SLIDE 11 - Cierre y próximos pasos -->
+    </div>
+
+    <div class="footer-nav">
+        <button id="prevSlideBtn"><i class="fas fa-chevron-left"></i> Anterior</button>
+        <div class="slide-counter" id="slideCounter">Slide 1 / 11</div>
+        <button id="nextSlideBtn">Siguiente <i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="dot-indicators" id="dotsContainer"></div>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let currentIdx = 0;
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevSlideBtn');
+    const nextBtn = document.getElementById('nextSlideBtn');
+    const counterSpan = document.getElementById('slideCounter');
+    const dotsContainer = document.getElementById('dotsContainer');
+
+    function updateSlides() {
+        slides.forEach((slide, idx) => {
+            slide.classList.toggle('active', idx === currentIdx);
+        });
+        counterSpan.innerText = `Slide ${currentIdx+1} / ${totalSlides}`;
+        updateDots();
+        document.querySelector('.slides-wrapper').scrollTop = 0;
+    }
+
+    function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, i) => {
+            if(i === currentIdx) dot.classList.add('active-dot');
+            else dot.classList.remove('active-dot');
+        });
+    }
+
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        for(let i=0; i<totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if(i === currentIdx) dot.classList.add('active-dot');
+            dot.addEventListener('click', () => {
+                currentIdx = i;
+                updateSlides();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function nextSlide() { if(currentIdx < totalSlides-1) { currentIdx++; updateSlides(); } }
+    function prevSlide() { if(currentIdx > 0) { currentIdx--; updateSlides(); } }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    window.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft') prevSlide();
+        if(e.key === 'ArrowRight') nextSlide();
+    });
+
+    createDots();
+    updateSlides();
+</script>
+</body>
+</html>
